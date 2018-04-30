@@ -1,0 +1,6 @@
+framework module RxUserNotifications {
+  umbrella header "RxUserNotifications-umbrella.h"
+
+  export *
+  module * { export * }
+}

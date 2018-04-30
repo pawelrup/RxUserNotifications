@@ -1,0 +1,164 @@
+disabled_rules: # rule identifiers to exclude from running
+  #- function_parameter_count
+  - line_length
+  #- cyclomatic_complexity
+  - conditional_binding_cascade
+  - force_cast
+  - trailing_whitespace
+
+opt_in_rules: # some rules are only opt-in
+  #- force_unwrapping
+  #- force_https
+  #- empty_count
+  - conditional_binding_cascade
+
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Carthage
+  - Pods
+  - Packages
+
+type_body_length:
+  - 700 #warning
+  - 1000 #error
+
+file_length:
+  - 1000 #warning
+  - 1200 #error
+
+function_body_length:
+  - 125 #warning
+  - 200 #error
+
+type_name:
+  min_length: 3 # only warning
+  max_length: # warning and error
+    warning: 50
+    error: 50
+
+custom_rules:
+
+    comments_capitalized_find_possible_code: # From https://github.com/brandenr/swiftlintconfig
+        name: "Catch Commented Out Code"
+        regex: "(^ *// +(?!swiftlint)[a-z]+)"
+        message: "The first word of a comment should be capitalized"
+        severity: warning
+
+    comments_capitalized_ignore_possible_code: # From https://github.com/brandenr/swiftlintconfig
+        name: "Capitalize First Word In Comment"
+        regex: '(^ +// +(?!swiftlint)[a-z]+)'
+        message: "The first word of a comment should be capitalized"
+        severity: error
+        match_kinds:
+            - comment
+            - doccomment
+
+    comments_space: # From https://github.com/brandenr/swiftlintconfig
+        name: "Space After Comment"
+        regex: '(^ *//\w+)'
+        message: "There should be a space after //"
+        severity: error
+
+    double_space: # From https://github.com/IBM-Swift/Package-Builder
+        include: "*.swift"
+        name: "Double space"
+        regex: '([a-z,A-Z] \s+)'
+        message: "Double space between keywords"
+        match_kinds: keyword
+        severity: warning
+
+    empty_closure_params:
+        name: "Empty closure params"
+        regex: '\{ (\(\) -> Void in)$'
+        message: "`() -> Void in` should be avoided"
+        severity: warning
+
+    empty_commented_line:
+        name: "Empty Commented Out Line"
+        regex: '(\t+| +)//\n'
+        message: "Remove useless comment lines or use /* format */"
+        severity: warning
+
+    empty_first_line: # From https://github.com/brandenr/swiftlintconfig
+        name: "Empty First Line"
+        regex: '(^[ a-zA-Z ]*(?:protocol|extension|class|struct) (?!(?:var|let))[ a-zA-Z:]*\{\n *\S+)'
+        message: "There should be an empty line after a declaration"
+        severity: error
+
+    empty_line_after_guard: # From https://github.com/brandenr/swiftlintconfig
+        name: "Empty Line After Guard"
+        regex: '(^ *guard[ a-zA-Z0-9=?.\(\),><!]*\{[ a-zA-Z0-9=?.\(\),><!]*\}\n *(?!(?:return|guard))\S+)'
+        message: "There should be an empty line after a guard"
+        severity: error
+
+    empty_line_after_super: # From https://github.com/brandenr/swiftlintconfig
+        name: "Empty Line After Super"
+        regex: '(^ *super\.[ a-zA-Z0-9=?.\(\)\{\}:,><!]*\n *(?!(?:\}|return))\S+)'
+        message: "There should be an empty line after super"
+        severity: error
+
+    empty_lines_before_declaration_end:
+        name: "Empty lines before declaration end"
+        regex: '\n[ \t]*\n[ \t]*\}([ \t]*\n|\n)'
+        message: "Empty lines before a declaration aren't improving the readability."
+        severity: warning
+
+    explicit_failure_calls: # From https://github.com/krzysztofzablocki/Traits
+        name: “Avoid asserting ‘false’”
+        regex: ‘((assert|precondition)\(false)’
+        message: “Use assertionFailure() or preconditionFailure() instead.”
+        severity: warning
+
+    force_https: # From https://github.com/krzysztofzablocki/Traits
+        name: "Force HTTPS over HTTP"
+        regex: '((?i)http(?!s))'
+        match_kinds: string
+        message: "HTTPS should be favored over HTTP"
+        severity: warning
+
+    lowercase_constants:
+        name: "Lowercase Constants"
+        regex: '[ \t]let[ \t]*[A-Z][\w]*[ \t]*(=|:)'
+        message: "Constants should begin with a lowercase character."
+        severity: warning
+        match_kinds:
+            - argument
+            - attribute.builtin
+            - attribute.id
+            - buildconfig.id
+            - buildconfig.keyword
+            - comment
+            - comment.mark
+            - comment.url
+            - doccomment
+            - doccomment.field
+            - identifier
+            - keyword
+            - number
+            - objectliteral
+            - parameter
+            - placeholder
+            - typeidentifier
+
+    missing_closure_datatype:
+        name: "Missing Closure Data Type"
+        regex: '(\{[\s]{1}(\[weak [\w]+?\][\s]{1})*?\([^:]+?\)[\s]{1}in)'
+        message: "Data Type in Closure is missing"
+        severity: warning
+
+    multiple_empty_lines: # From https://github.com/brandenr/swiftlintconfig
+        name: "Multiple Empty Lines"
+        regex: '((?:\s*\n){3,})'
+        message: "There are too many line breaks"
+        severity: error
+
+    unnecessary_type: # From https://github.com/brandenr/swiftlintconfig
+        name: "Unnecessary Type"
+        regex: '[ a-zA-Z0-9]*(?:let|var) [ a-zA-Z0-9]*: ([a-zA-Z0-9]*)[\? ]*= \1'
+        message: "Type Definition Not Needed"
+        severity: error
+
+    unnecessary_leading_void_in:
+        name: "Unnecessary -> Void in at the end of the line"
+        regex: '(-> (Void|\(\)) in$)'
+        message: "Unnecessary '-> Void in' at the end of the line. Use only 'in'"
+        severity: warning
