@@ -11,6 +11,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+Xcode 9, Swift 4.1
+
 ## Installation
 
 RxUserNotifications is available through [CocoaPods](https://cocoapods.org). To install
@@ -18,6 +20,32 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'RxUserNotifications'
+```
+
+## Usage
+
+Simply subscribe to `willPresentNotification` or `didReceiveResponse` like below:
+
+```swift
+let center = UNUserNotificationCenter.current()
+
+// Presenting notification when app is in foreground.
+
+center.rx.willPresentNotification
+	.subscribe(onNext: { (notification: UNNotification, completion: UNUserNotificationCenter.WillPresentNotificationCompletionHandler) in
+		// Do something
+		completion([.badge, .alert, .sound])
+	})
+	.disposed(by: disposeBag)
+
+// Receiving user response
+
+center.rx.didReceiveResponse
+	.subscribe(onNext: { (response: UNNotificationResponse, completion: UNUserNotificationCenter.DidReceiveResponseCompletionHandler) in
+		// Do something
+		completion()
+	})
+	.disposed(by: disposeBag)
 ```
 
 ## Author

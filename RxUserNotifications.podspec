@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxUserNotifications'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'Reactive extension for UserNotifications.'
 
   s.description      = <<-DESC

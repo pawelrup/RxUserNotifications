@@ -40,6 +40,8 @@ extension Reactive where Base: UNUserNotificationCenter {
 		return RxUNUserNotificationCenterDelegateProxy.proxy(for: base)
 	}
 	
+	/// Will be called only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
+	@available(iOS 10.0, *)
 	public var willPresentNotification: Observable<UNUserNotificationCenter.WillPresentNotificationArguments> {
 		return delegate.methodInvoked(#selector(UNUserNotificationCenterDelegate.userNotificationCenter(_:willPresent:withCompletionHandler:)))
 			.map {
@@ -49,6 +51,7 @@ extension Reactive where Base: UNUserNotificationCenter {
 		}
 	}
 	
+	/// Will be called when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction.
 	public var didReceiveResponse: Observable<UNUserNotificationCenter.DidReceiveResponseArguments> {
 		return delegate.methodInvoked(#selector(UNUserNotificationCenterDelegate.userNotificationCenter(_:didReceive:withCompletionHandler:)))
 			.map {
