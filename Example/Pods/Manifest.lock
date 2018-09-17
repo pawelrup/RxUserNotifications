@@ -6,7 +6,7 @@ PODS:
     - RxSwiftExt/Core (= 3.3.0)
   - RxSwiftExt/Core (3.3.0):
     - RxSwift (~> 4.0)
-  - RxUserNotifications (0.1.2):
+  - RxUserNotifications (0.1.3):
     - RxCocoa (~> 4.3.0)
     - RxSwift (~> 4.3.0)
   - SwiftLint (0.27.0)
@@ -31,9 +31,9 @@ SPEC CHECKSUMS:
   RxCocoa: 71b9cce833fbcb89a8eec11816dd225830c2bd3c
   RxSwift: a9717a34df3179fe63563f76e046ad345078dd3a
   RxSwiftExt: 81afb48ab0602f503147417baeb3989d64c7687d
-  RxUserNotifications: 93dbb8039c2e88edc247fd1b8bf2d90be39e5efb
+  RxUserNotifications: 131217570c5e412710cb6d3e55325edbf421a494
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: 63691e5d4c21fe9d1cf7aa0e403bc19f4e3b075f
+PODFILE CHECKSUM: c8edfe63fca5686281b4f1e15f5948293cfa8542
 
 COCOAPODS: 1.5.3

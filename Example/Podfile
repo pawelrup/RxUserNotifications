@@ -1,3 +1,4 @@
+platform :ios, '10.0'
 use_frameworks!
 
 target 'RxUserNotifications_Example' do
@@ -8,6 +9,6 @@ target 'RxUserNotifications_Example' do
   target 'RxUserNotifications_Tests' do
     inherit! :search_paths
 
-    
+
   end
 end

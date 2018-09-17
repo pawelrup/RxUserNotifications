@@ -59,7 +59,7 @@ class ViewController: UIViewController {
 		let content = UNMutableNotificationContent()
 		content.title = "Testing inline reply notificaions on iOS 10"
 		content.body = "Wow it works!"
-		content.sound = UNNotificationSound.default()
+		content.sound = UNNotificationSound.default
 		content.categoryIdentifier = "MESSAGE_CATEGORY"
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
 		
