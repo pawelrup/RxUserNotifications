@@ -60,4 +60,17 @@ extension Reactive where Base: UNUserNotificationCenter {
 				return ($0[1] as! UNNotificationResponse, handler)
 		}
 	}
+	
+	public func requestAuthorization(options: UNAuthorizationOptions = []) -> Single<Bool> {
+		return Single.create(subscribe: { (event) -> Disposable in
+			self.base.requestAuthorization(options: options) { (success: Bool, error: Error?) in
+				if let error = error {
+					event(.error(error))
+				} else {
+					event(.success(success))
+				}
+			}
+			return Disposables.create()
+		})
+	}
 }

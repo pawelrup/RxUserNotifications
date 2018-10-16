@@ -8,23 +8,27 @@
 
 import UIKit
 import UserNotifications
+import RxSwift
+import RxUserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+	
+	let disposeBag = DisposeBag()
 
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		
-		UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .badge, .alert]) { [application] (granted, error) in
-			DispatchQueue.main.async {
-				if granted {
-					application.registerForRemoteNotifications()
-				} else {
-					print(String(describing: error?.localizedDescription))
-				}
-			}
-		}
+		UNUserNotificationCenter.current().rx
+			.requestAuthorization(options: [.sound, .badge, .alert])
+			.subscribe(onSuccess: { (_: Bool) in
+				UIApplication.shared.registerForRemoteNotifications()
+			}, onError: { (error: Error) in
+				print(String(describing: error.localizedDescription))
+			})
+			.disposed(by: disposeBag)
+		
         return true
     }
 	
