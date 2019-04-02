@@ -8,12 +8,12 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxUserNotifications'
-  s.version          = '0.1.6'
+  s.version          = '0.1.7'
   s.summary          = 'Reactive extension for UserNotifications.'
 
   s.description      = <<-DESC
   RxUserNotifications is an RxSwift reactive extension for UNUserNotificationCenter.
-  Requires Xcode 10.0 with Swift 4.2 or greather.
+  Requires Xcode 10.2 with Swift 5.0 or greather.
                        DESC
 
   s.homepage         = 'https://github.com/pawelrup/RxUserNotifications'
@@ -23,14 +23,14 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '10.0'
 
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 
   s.source_files = 'RxUserNotifications/Classes/**/*'
   s.pod_target_xcconfig =  {
-	  'SWIFT_VERSION' => '4.2',
+	  'SWIFT_VERSION' => '5.0',
   }
 
   s.frameworks = 'UserNotifications'
-  s.dependency 'RxSwift', '~> 4.4.0'
-  s.dependency 'RxCocoa', '~> 4.4.0'
+  s.dependency 'RxSwift', '~> 4.5.0'
+  s.dependency 'RxCocoa', '~> 4.5.0'
 end
