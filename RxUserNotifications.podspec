@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxUserNotifications'
-  s.version          = '0.1.7'
+  s.version          = '0.1.8'
   s.summary          = 'Reactive extension for UserNotifications.'
 
   s.description      = <<-DESC
@@ -31,6 +31,6 @@ Pod::Spec.new do |s|
   }
 
   s.frameworks = 'UserNotifications'
-  s.dependency 'RxSwift', '~> 4.5.0'
-  s.dependency 'RxCocoa', '~> 4.5.0'
+  s.dependency 'RxSwift'
+  s.dependency 'RxCocoa'
 end
