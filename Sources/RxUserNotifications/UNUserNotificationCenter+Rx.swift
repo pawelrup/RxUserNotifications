@@ -35,12 +35,14 @@ private class RxUNUserNotificationCenterDelegateProxy: DelegateProxy<UNUserNotif
 }
 
 extension Reactive where Base: UNUserNotificationCenter {
+
+	// MARK: - Delegate
 	
 	public var delegate: DelegateProxy<UNUserNotificationCenter, UNUserNotificationCenterDelegate> {
 		return RxUNUserNotificationCenterDelegateProxy.proxy(for: base)
 	}
 	
-	/// Will be called only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
+	/// Asks the delegate how to handle a notification that arrived while the app was running in the foreground.
 	@available(iOS 10.0, *)
 	public var willPresentNotification: Observable<UNUserNotificationCenter.WillPresentNotificationArguments> {
 		return delegate.methodInvoked(#selector(UNUserNotificationCenterDelegate.userNotificationCenter(_:willPresent:withCompletionHandler:)))
@@ -51,7 +53,8 @@ extension Reactive where Base: UNUserNotificationCenter {
 		}
 	}
 	
-	/// Will be called when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction.
+	/// Asks the delegate to process the user's response to a delivered notification.
+	@available(iOS 10.0, *)
 	public var didReceiveResponse: Observable<UNUserNotificationCenter.DidReceiveResponseArguments> {
 		return delegate.methodInvoked(#selector(UNUserNotificationCenterDelegate.userNotificationCenter(_:didReceive:withCompletionHandler:)))
 			.map {
@@ -60,9 +63,19 @@ extension Reactive where Base: UNUserNotificationCenter {
 				return ($0[1] as! UNNotificationResponse, handler)
 		}
 	}
-	
+
+	/// Asks the delegate to display the in-app notification settings.
+	@available(iOS 12.0, *)
+	public var openSettingsFor: Observable<UNNotification?> {
+		return delegate.methodInvoked(#selector(UNUserNotificationCenterDelegate.userNotificationCenter(_:openSettingsFor:)))
+			.map { $0[1] as? UNNotification }
+	}
+
+	// MARK: - Functions
+
+	/// Requests authorization to interact with the user when local and remote notifications are delivered to the user's device.
 	public func requestAuthorization(options: UNAuthorizationOptions = []) -> Single<Bool> {
-		return Single.create(subscribe: { (event) -> Disposable in
+		return Single.create { event -> Disposable in
 			self.base.requestAuthorization(options: options) { (success: Bool, error: Error?) in
 				if let error = error {
 					event(.error(error))
@@ -71,6 +84,61 @@ extension Reactive where Base: UNUserNotificationCenter {
 				}
 			}
 			return Disposables.create()
-		})
+		}
+	}
+
+	/// Retrieves the app’s currently registered notification categories.
+	public func getNotificationCategories() -> Single<Set<UNNotificationCategory>> {
+		return Single.create { event -> Disposable in
+			self.base.getNotificationCategories { (categories: Set<UNNotificationCategory>) in
+				event(.success(categories))
+			}
+			return Disposables.create()
+		}
+	}
+
+	/// Requests the notification settings for this app.
+	public func getNotificationSettings() -> Single<UNNotificationSettings> {
+		return Single.create { event -> Disposable in
+			self.base.getNotificationSettings { (settings: UNNotificationSettings) in
+				event(.success(settings))
+			}
+			return Disposables.create()
+		}
+	}
+
+	/// Schedules a local notification for delivery.
+	/// - Parameter request: The request object containing the notification payload and trigger information.
+	public func add(_ request: UNNotificationRequest) -> Single<Void> {
+		return Single.create { event -> Disposable in
+			self.base.add(request) { (error: Error?) in
+				if let error = error {
+					event(.error(error))
+				} else {
+					event(.success(()))
+				}
+			}
+			return Disposables.create()
+		}
+	}
+
+	/// Returns a list of all notification requests that are scheduled and waiting to be delivered.
+	public func getPendingNotificationRequests() -> Single<[UNNotificationRequest]> {
+		return Single.create { event -> Disposable in
+			self.base.getPendingNotificationRequests { (requests: [UNNotificationRequest]) in
+				event(.success(requests))
+			}
+			return Disposables.create()
+		}
+	}
+
+	/// Returns a list of the app’s notifications that are still displayed in Notification Center.
+	public func getDeliveredNotifications() -> Single<[UNNotification]> {
+		return Single.create { event -> Disposable in
+			self.base.getDeliveredNotifications { (requests: [UNNotification]) in
+				event(.success(requests))
+			}
+			return Disposables.create()
+		}
 	}
 }
