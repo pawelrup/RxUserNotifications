@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxUserNotifications'
-  s.version          = '0.1.8'
+  s.version          = '1.0.0'
   s.summary          = 'Reactive extension for UserNotifications.'
 
   s.description      = <<-DESC
@@ -23,12 +23,9 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '10.0'
 
-  s.swift_version = '5.0'
+  s.swift_version = '5.1'
 
-  s.source_files = 'RxUserNotifications/Classes/**/*'
-  s.pod_target_xcconfig =  {
-	  'SWIFT_VERSION' => '5.0',
-  }
+  s.source_files = 'Sources/RxUserNotifications/**/*'
 
   s.frameworks = 'UserNotifications'
   s.dependency 'RxSwift'
