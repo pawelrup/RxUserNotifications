@@ -43,7 +43,6 @@ extension Reactive where Base: UNUserNotificationCenter {
 	}
 	
 	/// Asks the delegate how to handle a notification that arrived while the app was running in the foreground.
-	@available(iOS 10.0, *)
 	public var willPresentNotification: Observable<UNUserNotificationCenter.WillPresentNotificationArguments> {
 		return delegate.methodInvoked(#selector(UNUserNotificationCenterDelegate.userNotificationCenter(_:willPresent:withCompletionHandler:)))
 			.map {
@@ -54,7 +53,6 @@ extension Reactive where Base: UNUserNotificationCenter {
 	}
 	
 	/// Asks the delegate to process the user's response to a delivered notification.
-	@available(iOS 10.0, *)
 	public var didReceiveResponse: Observable<UNUserNotificationCenter.DidReceiveResponseArguments> {
 		return delegate.methodInvoked(#selector(UNUserNotificationCenterDelegate.userNotificationCenter(_:didReceive:withCompletionHandler:)))
 			.map {
@@ -64,12 +62,14 @@ extension Reactive where Base: UNUserNotificationCenter {
 		}
 	}
 
+	#if os(iOS)
 	/// Asks the delegate to display the in-app notification settings.
 	@available(iOS 12.0, *)
 	public var openSettingsFor: Observable<UNNotification?> {
 		return delegate.methodInvoked(#selector(UNUserNotificationCenterDelegate.userNotificationCenter(_:openSettingsFor:)))
 			.map { $0[1] as? UNNotification }
 	}
+	#endif
 
 	// MARK: - Functions
 
