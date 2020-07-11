@@ -62,9 +62,9 @@ extension Reactive where Base: UNUserNotificationCenter {
 		}
 	}
 
-	#if os(iOS)
+	#if os(iOS) || os(macOS)
 	/// Asks the delegate to display the in-app notification settings.
-	@available(iOS 12.0, *)
+	@available(iOS 12.0, macOS 10.14, *)
 	public var openSettingsFor: Observable<UNNotification?> {
 		return delegate.methodInvoked(#selector(UNUserNotificationCenterDelegate.userNotificationCenter(_:openSettingsFor:)))
 			.map { $0[1] as? UNNotification }

@@ -4,22 +4,22 @@
 [![Version](https://img.shields.io/cocoapods/v/RxUserNotifications.svg?style=flat)](https://cocoapods.org/pods/RxUserNotifications)
 [![License](https://img.shields.io/cocoapods/l/RxUserNotifications.svg?style=flat)](https://cocoapods.org/pods/RxUserNotifications)
 [![Platform](https://img.shields.io/cocoapods/p/RxUserNotifications.svg?style=flat)](https://cocoapods.org/pods/RxUserNotifications)
-[![Xcode](https://img.shields.io/badge/Xcode-11.0-lightgray.svg?style=flat&logo=xcode)](https://itunes.apple.com/pl/app/xcode/id497799835?l=pl&mt=12)
-[![Swift 5.0](https://img.shields.io/badge/Swift-5.1-orange.svg?style=flat&logo=swift)](https://swift.org/)
+[![Xcode](https://img.shields.io/badge/Xcode-12.0-lightgray.svg?style=flat&logo=xcode)](https://itunes.apple.com/pl/app/xcode/id497799835)
+[![Swift 5.3](https://img.shields.io/badge/Swift-5.3-orange.svg?style=flat&logo=swift)](https://swift.org/)
 
 ## Requirements
 
-Xcode 11, Swift 5.1
+Xcode 12, Swift 5.3
 
 ## Installation
 
 ### Swift Package Manager
 
-RxAVKit is available through Swift Package Manager. To install it, add the following line to your `Package.swift` into dependencies:
+RxUserNotifications is available through Swift Package Manager. To install it, add the following line to your `Package.swift` into dependencies:
 ```swift
-.package(url: "https://github.com/pawelrup/RxUserNotifications", .upToNextMinor(from: "1.0.0"))
+.package(url: "https://github.com/pawelrup/RxUserNotifications", .upToNextMinor(from: "1.1.0"))
 ```
-and then add `RxAVKit` to your target dependencies.
+and then add `RxUserNotifications` to your target dependencies.
 
 ### CocoaPods
 
