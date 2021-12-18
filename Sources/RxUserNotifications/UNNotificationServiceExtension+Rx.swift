@@ -11,15 +11,19 @@ import RxCocoa
 
 @available(iOS 10.0, watchOS 6.0, macOS 10.14, *)
 extension UNNotificationServiceExtension {
-  static var rx: RxStatic.Type {
-    RxStatic.self
-  }
+  var rx: UNNotificationServiceExtension.Rx { .init(self) }
 
-  struct RxStatic {}
+  struct Rx {
+    private let base: UNNotificationServiceExtension
+
+    init(_ base: UNNotificationServiceExtension) {
+      self.base = base
+    }
+  }
 }
 
 @available(iOS 10.0, watchOS 6.0, macOS 10.14, *)
-extension UNNotificationServiceExtension.RxStatic {
+extension UNNotificationServiceExtension.Rx {
 
 	/// Asks you to make any needed changes to the notification and notify the system when you're done.
 	/// - Parameter request: The original notification request. Use this object to get the original content of the notification.
