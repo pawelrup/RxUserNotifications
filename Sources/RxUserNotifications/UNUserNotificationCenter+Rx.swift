@@ -34,7 +34,15 @@ private class RxUNUserNotificationCenterDelegateProxy: DelegateProxy<UNUserNotif
 	}
 }
 
-extension Reactive where Base: UNUserNotificationCenter {
+extension UNUserNotificationCenter {
+  static var rx: RxStatic.Type {
+    RxStatic.self
+  }
+
+  struct RxStatic {}
+}
+
+extension UNUserNotificationCenter.RxStatic {
 
 	// MARK: - Delegate
 	
