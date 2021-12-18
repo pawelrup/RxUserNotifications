@@ -35,14 +35,18 @@ private class RxUNUserNotificationCenterDelegateProxy: DelegateProxy<UNUserNotif
 }
 
 extension UNUserNotificationCenter {
-  static var rx: RxStatic.Type {
-    RxStatic.self
-  }
+  var rx: UNUserNotificationCenter.Rx { .init(self) }
 
-  struct RxStatic {}
+  struct Rx {
+    private let base: UNUserNotificationCenter
+
+    init(_ base: UNUserNotificationCenter) {
+      self.base = base
+    }
+  }
 }
 
-extension UNUserNotificationCenter.RxStatic {
+extension UNUserNotificationCenter.Rx {
 
 	// MARK: - Delegate
 	
