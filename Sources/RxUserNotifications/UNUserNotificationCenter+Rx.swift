@@ -10,7 +10,7 @@ import UserNotifications
 import RxSwift
 import RxCocoa
 
-extension UNUserNotificationCenter: HasDelegate {
+public extension UNUserNotificationCenter: HasDelegate {
 	public typealias Delegate = UNUserNotificationCenterDelegate
 	
 	public typealias DidReceiveResponseCompletionHandler = @convention(block) () -> Void
@@ -34,7 +34,7 @@ private class RxUNUserNotificationCenterDelegateProxy: DelegateProxy<UNUserNotif
 	}
 }
 
-extension UNUserNotificationCenter {
+public extension UNUserNotificationCenter {
   var rx: UNUserNotificationCenter.Rx { .init(self) }
 
   struct Rx {
@@ -46,7 +46,7 @@ extension UNUserNotificationCenter {
   }
 }
 
-extension UNUserNotificationCenter.Rx {
+public extension UNUserNotificationCenter.Rx {
 
 	// MARK: - Delegate
 	
