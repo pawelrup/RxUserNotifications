@@ -78,7 +78,7 @@ extension Reactive where Base: UNUserNotificationCenter {
 		return Single.create { event -> Disposable in
 			self.base.requestAuthorization(options: options) { (success: Bool, error: Error?) in
 				if let error = error {
-					event(.error(error))
+					event(.failure(error))
 				} else {
 					event(.success(success))
 				}
@@ -113,7 +113,7 @@ extension Reactive where Base: UNUserNotificationCenter {
 		return Single.create { event -> Disposable in
 			self.base.add(request) { (error: Error?) in
 				if let error = error {
-					event(.error(error))
+					event(.failure(error))
 				} else {
 					event(.success(()))
 				}
