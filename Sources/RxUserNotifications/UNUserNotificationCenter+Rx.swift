@@ -34,7 +34,19 @@ private class RxUNUserNotificationCenterDelegateProxy: DelegateProxy<UNUserNotif
 	}
 }
 
-extension Reactive where Base: UNUserNotificationCenter {
+public extension UNUserNotificationCenter {
+  var rx: UNUserNotificationCenter.Rx { .init(self) }
+
+  struct Rx {
+    private let base: UNUserNotificationCenter
+
+    init(_ base: UNUserNotificationCenter) {
+      self.base = base
+    }
+  }
+}
+
+public extension UNUserNotificationCenter.Rx {
 
 	// MARK: - Delegate
 	
@@ -78,7 +90,7 @@ extension Reactive where Base: UNUserNotificationCenter {
 		return Single.create { event -> Disposable in
 			self.base.requestAuthorization(options: options) { (success: Bool, error: Error?) in
 				if let error = error {
-					event(.error(error))
+					event(.failure(error))
 				} else {
 					event(.success(success))
 				}
@@ -113,7 +125,7 @@ extension Reactive where Base: UNUserNotificationCenter {
 		return Single.create { event -> Disposable in
 			self.base.add(request) { (error: Error?) in
 				if let error = error {
-					event(.error(error))
+					event(.failure(error))
 				} else {
 					event(.success(()))
 				}
